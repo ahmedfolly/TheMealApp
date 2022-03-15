@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/mainFragment">
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="com.example.themealapp.ui.MainFragment"
+        android:label="fragment_main"
+        tools:layout="@layout/fragment_main" >
+        <action
+            android:id="@+id/action_mainFragment_to_searchFragment"
+            app:destination="@id/searchFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_categories2Fragment"
+            app:destination="@id/categories2Fragment"
+            />
+        <action
+            android:id="@+id/action_mainFragment_to_detailsFragment"
+            app:destination="@id/detailsFragment"
+            app:popUpToInclusive="true"/>
+
+    </fragment>
+    <fragment
+        android:id="@+id/categories2Fragment"
+        android:name="com.example.themealapp.ui.FilterCategoriesFragment"
+        android:label="fragment_categories2"
+        tools:layout="@layout/fragment_categories2" >
+        <argument
+            android:name="category"
+            app:argType="com.example.themealapp.Models.Category"
+            app:nullable="true" />
+        <action
+            android:id="@+id/action_categories2Fragment_to_detailsFragment"
+            app:destination="@id/detailsFragment"
+            />
+        <argument
+            android:name="categoryName"
+            app:argType="string"
+            app:nullable="true" />
+        <action
+            android:id="@+id/action_categories2Fragment_to_mainFragment"
+            app:destination="@id/mainFragment"
+            app:popUpTo="@+id/mainFragment"
+            app:popUpToInclusive="true"/>
+
+    </fragment>
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.example.themealapp.ui.SearchFragment"
+        android:label="fragment_search"
+        tools:layout="@layout/fragment_search" >
+
+        <action
+            android:id="@+id/action_searchFragment_to_detailsFragment"
+            app:destination="@id/detailsFragment"
+            app:popUpToInclusive="true"/>
+    </fragment>
+    <fragment
+        android:id="@+id/detailsFragment"
+        android:name="com.example.themealapp.ui.DetailsFragment"
+        android:label="fragment_details"
+        tools:layout="@layout/fragment_details" >
+        <argument
+            android:name="mealId"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_detailsFragment_to_categories2Fragment"
+            app:destination="@id/categories2Fragment"
+            />
+        <argument
+            android:name="category"
+            app:argType="com.example.themealapp.Models.Category"
+            app:nullable="true" />
+        <action
+            android:id="@+id/action_detailsFragment_to_mainFragment"
+            app:destination="@id/mainFragment"
+            app:popUpToInclusive="true"
+            app:popUpTo="@id/mainFragment"
+            />
+    </fragment>
+</navigation>

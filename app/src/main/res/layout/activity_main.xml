@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.MainActivity">
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/nav_host"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        app:defaultNavHost="true"
+        app:navGraph="@navigation/nav_graph"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+
+
+<!--    <RelativeLayout-->
+<!--        android:id="@+id/header_layout"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="164dp"-->
+<!--        android:background="#F18C8E"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:layout_constraintVertical_bias="0.0">-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/logo_text"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="@string/AppName"-->
+<!--            android:textSize="20sp"-->
+<!--            android:textColor="#fff"-->
+<!--            android:textStyle="bold"-->
+<!--            android:paddingLeft="16dp"-->
+<!--            android:gravity="start"-->
+<!--            android:paddingRight="16dp"-->
+<!--            android:layout_marginTop="8dp"-->
+<!--            />-->
+<!--        <LinearLayout-->
+<!--            android:id="@+id/search_box_main_id"-->
+<!--            android:layout_width="332dp"-->
+<!--            android:layout_height="55dp"-->
+<!--            android:orientation="horizontal"-->
+<!--            android:background="@drawable/search_box_bak"-->
+<!--            android:layout_centerInParent="true"-->
+<!--            android:layout_marginTop="16dp">-->
+<!--            <ImageView-->
+<!--                android:layout_width="64dp"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:src="@drawable/ic_baseline_search_24"-->
+<!--                android:layout_margin="8dp"-->
+<!--                android:id="@+id/search_icon"/>-->
+
+<!--            <TextView-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_weight="1"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:gravity="start|center"-->
+<!--                android:text="@string/search_meal_str"-->
+<!--                android:textColor="#ddd"-->
+<!--                android:textSize="20sp"/>-->
+
+<!--        </LinearLayout>-->
+
+
+<!--    </RelativeLayout>-->
+<!--    <TextView-->
+<!--        android:id="@+id/text"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="@string/latest_dishes_str"-->
+<!--        android:textSize="20sp"-->
+<!--        android:textColor="#000"-->
+<!--        android:textStyle="bold"-->
+<!--        android:layout_margin="8dp"-->
+<!--        android:paddingLeft="4dp"-->
+<!--        android:paddingRight="4dp"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/header_layout"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintBottom_toTopOf="@id/shimmer_view_container"/>-->
+
+<!--    <com.facebook.shimmer.ShimmerFrameLayout-->
+<!--        android:id="@+id/shimmer_view_container"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/text"-->
+<!--        app:layout_constraintBottom_toTopOf="@id/dishes_categories_txt"-->
+<!--        >-->
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:orientation="horizontal"-->
+<!--            >-->
+<!--            <include-->
+<!--                layout="@layout/latest_shimmer"/>-->
+<!--            <include-->
+<!--                layout="@layout/latest_shimmer"/>-->
+<!--            <include-->
+<!--            layout="@layout/latest_shimmer"/>-->
+<!--        </LinearLayout>-->
+<!--    </com.facebook.shimmer.ShimmerFrameLayout>-->
+
+<!--    <androidx.recyclerview.widget.RecyclerView-->
+<!--        android:id="@+id/latest_meals_recycler"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        tools:listitem="@layout/latest_meal_layout"-->
+<!--        android:visibility="gone"-->
+<!--        app:layout_constraintBottom_toTopOf="@id/dishes_categories_txt"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/text"/>-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/dishes_categories_txt"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="Dishes Categories"-->
+<!--        android:textSize="20sp"-->
+<!--        android:textColor="#000"-->
+<!--        android:textStyle="bold"-->
+<!--        android:layout_margin="8dp"-->
+<!--        android:paddingLeft="4dp"-->
+<!--        android:paddingRight="4dp"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/latest_meals_recycler"-->
+<!--        app:layout_constraintBottom_toTopOf="@id/categories_recycler"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"/>-->
+<!--    <com.facebook.shimmer.ShimmerFrameLayout-->
+<!--        android:id="@+id/categoires_shimmer_effect"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="0dp"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/dishes_categories_txt"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        >-->
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:orientation="vertical">-->
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:orientation="horizontal"-->
+<!--                android:padding="8dp">-->
+<!--                <include-->
+<!--                    layout="@layout/categories_shimmer_layout"/>-->
+<!--                <include-->
+<!--                    layout="@layout/categories_shimmer_layout"/>-->
+<!--                <include-->
+<!--                layout="@layout/categories_shimmer_layout"/>-->
+<!--            </LinearLayout>-->
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:orientation="horizontal"-->
+<!--                android:padding="8dp">-->
+<!--                <include-->
+<!--                    layout="@layout/categories_shimmer_layout"/>-->
+<!--                <include-->
+<!--                    layout="@layout/categories_shimmer_layout"/>-->
+<!--                <include-->
+<!--                    layout="@layout/categories_shimmer_layout"/>-->
+<!--            </LinearLayout>-->
+
+<!--        </LinearLayout>-->
+
+<!--    </com.facebook.shimmer.ShimmerFrameLayout>-->
+
+
+<!--    <androidx.recyclerview.widget.RecyclerView-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="0dp"-->
+<!--        android:id="@+id/categories_recycler"-->
+<!--        android:visibility="invisible"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/dishes_categories_txt"-->
+<!--         />-->
+
+</androidx.constraintlayout.widget.ConstraintLayout>
