@@ -27,7 +27,7 @@ What I used in this project?
 
 Most of UI designs from https://github.com/haerulmuttaqin/FoodsApp-starting-code with some differences.
 
-Coming Updates (Caching using Room database,posibility of put meal in favourits,etc...)
+Coming Updates (Caching using Room database,favourits meals,etc...)
 
 ![](image.jpg)
 
