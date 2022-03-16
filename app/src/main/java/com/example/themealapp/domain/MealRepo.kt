@@ -13,8 +13,7 @@ import java.lang.Exception
 import javax.inject.Inject
 
 @ActivityRetainedScoped
-class MealRepo @Inject constructor(val apiService: APIService) {
-
+class MealRepo @Inject constructor(private val apiService: APIService) {
 
     fun getLatestMeals() = liveData(Dispatchers.IO) {
         emit(Resource.loading(null))
