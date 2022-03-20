@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/filter_category_meals"
     tools:context=".ui.FilterCategoriesFragment">
 
     <com.google.android.material.tabs.TabLayout
@@ -16,6 +17,8 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
         app:tabMode="scrollable" />
+
+
     <com.facebook.shimmer.ShimmerFrameLayout
         android:id="@+id/shimmer_effect_3"
         android:layout_width="0dp"
@@ -41,7 +44,6 @@
         android:visibility="invisible"
         >
 
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -62,7 +64,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginEnd="32dp"
                 app:cardCornerRadius="8dp"
                 app:cardElevation="10dp"
@@ -83,21 +85,11 @@
                     />
 
             </androidx.cardview.widget.CardView>
-
-
-            <TextView
-                android:id="@+id/spannable_text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:textColor="#000"
-                android:textSize="25sp"
-                android:textStyle="bold" />
-
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/meals_container_id"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginTop="8dp"
                 app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
                 app:spanCount="2"/>
 

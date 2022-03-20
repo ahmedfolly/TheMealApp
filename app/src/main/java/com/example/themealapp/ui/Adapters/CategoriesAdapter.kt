@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.DiffUtil
@@ -14,10 +15,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.themealapp.Models.Category
 import com.example.themealapp.R
+import com.example.themealapp.presentation.MainViewModel
 import com.example.themealapp.ui.MainFragmentDirections
 
 class CategoriesAdapter(
-    val context: Context
+    val context: Context,
+    val putCategory: PutCategory
 ) : ListAdapter<Category, CategoriesAdapter.CategoriesVH>(MealsListDiffUtil()) {
 
     private lateinit var navController: NavController
@@ -50,8 +53,8 @@ class CategoriesAdapter(
 
     private fun initCategoryFragment(view: View, category: Category) {
         navController = Navigation.findNavController(view)
-        val action = MainFragmentDirections.actionMainFragmentToCategories2Fragment(category,null)
-        navController.navigate(action)
+        navController.navigate(R.id.action_mainFragment_to_categories2Fragment)
+        putCategory.setCategory(category)
     }
 
     companion object {
@@ -69,4 +72,7 @@ class MealsListDiffUtil : DiffUtil.ItemCallback<Category>() {
         return oldItem == newItem
     }
 
+}
+interface PutCategory{
+    fun setCategory(category: Category)
 }

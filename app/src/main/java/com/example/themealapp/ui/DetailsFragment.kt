@@ -3,11 +3,11 @@ package com.example.themealapp.ui
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.fragment.app.activityViewModels
@@ -15,7 +15,9 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
+import com.example.themealapp.Models.Meal
 import com.example.themealapp.Models.MealDetails
+import com.example.themealapp.R
 import com.example.themealapp.databinding.FragmentDetailsBinding
 import com.example.themealapp.presentation.MainViewModel
 import com.example.themealapp.utils.Status
@@ -31,18 +33,13 @@ class DetailsFragment : Fragment() {
         get() = _binding!!
     private val mainViewModel by activityViewModels<MainViewModel>()
     private val args: DetailsFragmentArgs by navArgs()
+    private lateinit var favorites: List<Meal>
+    private lateinit var newList: MutableList<String>
+    private var isFavorite: Boolean = false
+    private var categoryName:String?=null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        requireActivity().onBackPressedDispatcher.addCallback(this) {
-            if(args.category != null){
-            val action = DetailsFragmentDirections.actionDetailsFragmentToCategories2Fragment(args.category,null)
-                navController.navigate(action)
-            }else{
-                val action = DetailsFragmentDirections.actionDetailsFragmentToMainFragment()
-                navController.navigate(action)
-            }
-
-        }
     }
 
     override fun onCreateView(
@@ -55,13 +52,14 @@ class DetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        navController = Navigation.findNavController(view)
         hideKeyboard()
-        navController=Navigation.findNavController(view)
-        val mealId = args.mealId
-        getMealDetails(mealId)
+        getMealDetails(args.meal!!.idMeal)
+        getFavorites()
+        onFavoriteBtnClicked()
 
     }
-
     private fun getMealDetails(mealId: String) {
         mainViewModel.getMealDetails(mealId).observe(viewLifecycleOwner) {
             val meals = it.data
@@ -69,38 +67,31 @@ class DetailsFragment : Fragment() {
                 meals == null
             }
             if (it.status == Status.SUCCESS) {
-                val meal= meals!![0]
+                val meal = meals!![0]
                 setupVariables(meal)
                 openLink(meal)
                 openYoutube(meal)
             }
         }
     }
-
     private fun putMealImage(imageUrl: String) {
         Glide.with(this).load(imageUrl).into(binding.mealThumb)
     }
-
     private fun putMealText(mealName: String) {
         binding.mealName.text = mealName
     }
-
     private fun putInstructions(instructionText: String) {
         binding.instructions.text = instructionText
     }
-
     private fun putCategoryName(categoryName: String) {
         binding.category.text = categoryName
     }
-
     private fun putCountryName(countryName: String) {
         binding.country.text = countryName
     }
-
     private fun putIngredient(gradients: String) {
         binding.ingredient.text = gradients
     }
-
     private fun getIngredient(ingredients: MutableList<String>) {
         val ingredientText = StringBuilder()
         for (ingredient: String in ingredients) {
@@ -110,7 +101,6 @@ class DetailsFragment : Fragment() {
             putIngredient(ingredientText.toString())
         }
     }
-
     private fun addIngredientToIngredients(meal: MealDetails) {
         val ingredients = mutableListOf<String>()
         ingredients.add(meal.strIngredient1)
@@ -136,8 +126,8 @@ class DetailsFragment : Fragment() {
 
         getIngredient(ingredients)
     }
-
     private fun addMeasures(meal: MealDetails) {
+
         val measures = mutableListOf<String>()
         measures.add(meal.strMeasure1)
         measures.add(meal.strMeasure2)
@@ -162,22 +152,18 @@ class DetailsFragment : Fragment() {
 
         getMeasures(measures)
     }
-
     private fun getMeasures(measuresList: MutableList<String>) {
         val measureText = StringBuilder()
         for (measure: String in measuresList) {
             if (measure != " " && measure.isNotEmpty()) {
-                Log.d(TAG, "getMeasures: $measure")
                 measureText.append("\n \u2022$measure")
             }
             putMeasuresText(measureText.toString())
         }
     }
-
     private fun putMeasuresText(measureText: String) {
         binding.measure.text = measureText
     }
-
     private fun setupVariables(meal: MealDetails) {
         val imageUrl = meal.strMealThumb
         putMealImage(imageUrl)
@@ -185,34 +171,88 @@ class DetailsFragment : Fragment() {
         putMealText(mealName)
         val instructionText = meal.strInstructions
         putInstructions(instructionText)
-        val categoryName = meal.strCategory
-        putCategoryName(categoryName)
+        categoryName = meal.strCategory
+        putCategoryName(categoryName!!)
         val countryName = meal.strArea
         putCountryName(countryName)
 
         addIngredientToIngredients(meal)
         addMeasures(meal)
-    }
 
+    }
     private fun openLink(meal: MealDetails) {
         binding.source.setOnClickListener {
             implicitIntent(meal.strSource)
         }
     }
-
     private fun openYoutube(meal: MealDetails) {
         binding.youtube.setOnClickListener {
             implicitIntent(meal.strYoutube)
         }
     }
-
     private fun implicitIntent(uri: String) {
         val implicitIntent = Intent(Intent.ACTION_VIEW, Uri.parse(uri))
         activity?.startActivity(implicitIntent)
     }
+    private fun addMealToFavorites(meal: Meal) {
+        mainViewModel.addMealToFavorites(meal).observe(viewLifecycleOwner) {
+            when (it.status) {
+                Status.LOADING -> {}
+                Status.SUCCESS -> {
+                    Toast.makeText(context, "Saved to favorites", Toast.LENGTH_SHORT).show()
+                }
+                Status.FAIL -> {
+                    Toast.makeText(context, it.message, Toast.LENGTH_LONG).show()
+                }
+            }
+        }
+    }
 
-    
-    companion object {
-        private const val TAG = "DetailsFragment"
+    private fun getFavorites() {
+        newList = mutableListOf()
+        favorites = listOf()
+        mainViewModel.getAllFavorites().observe(viewLifecycleOwner) { resource ->
+            when (resource.status) {
+                Status.LOADING -> {}
+                Status.SUCCESS -> {
+                    favorites = resource.data!!
+                    for (meal:Meal in favorites) {
+                        newList.add(meal.idMeal)
+                    }
+                    isFavorite = if (newList.contains(args.meal!!.idMeal)) {
+                        addFilledFavoriteImage()
+                        true
+                    } else {
+                        addOutlinedFavoriteImage()
+                        false
+                    }
+                }
+                Status.FAIL -> {}
+            }
+        }
+    }
+    private fun onFavoriteBtnClicked(){
+        binding.addMealToFavorites.setOnClickListener {
+            isFavorite = if (!isFavorite){
+                binding.addMealToFavorites.setImageResource(R.drawable.ic_baseline_favorite_24)
+                args.meal?.isFavord=true
+                addMealToFavorites(args.meal!!)
+                true
+            }else{
+                binding.addMealToFavorites.setImageResource(R.drawable.ic_baseline_favorite_border_24)
+                mainViewModel.deleteFromFavorites(args.meal!!.idMeal)
+                false
+            }
+        }
+    }
+    private fun addFilledFavoriteImage(){
+        binding.addMealToFavorites.setImageResource(R.drawable.ic_baseline_favorite_24)
+    }
+    private fun addOutlinedFavoriteImage(){
+        binding.addMealToFavorites.setImageResource(R.drawable.ic_baseline_favorite_border_24)
+    }
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding=null
     }
 }

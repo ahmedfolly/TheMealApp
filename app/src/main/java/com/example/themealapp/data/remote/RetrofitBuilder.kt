@@ -1,4 +1,4 @@
-package com.example.themealapp.api
+package com.example.themealapp.data.remote
 
 import com.example.themealapp.utils.Constants
 import okhttp3.Interceptor

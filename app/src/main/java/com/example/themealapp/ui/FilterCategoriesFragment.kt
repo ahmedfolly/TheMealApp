@@ -1,15 +1,15 @@
 package com.example.themealapp.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.NavController
-import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.themealapp.Models.Category
 import com.example.themealapp.databinding.FragmentCategories2Binding
@@ -19,32 +19,20 @@ import com.example.themealapp.utils.Status
 import com.google.android.material.tabs.TabLayout
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.*
-import java.util.*
 
 
 @AndroidEntryPoint
 class FilterCategoriesFragment : Fragment() {
-
-    private val categories2FragmentArgs: FilterCategoriesFragmentArgs by navArgs()
-    lateinit var category: Category
     private lateinit var categoriesList: List<Category>
     private lateinit var mealsAdapter: MealsAdapter
     private var _binding: FragmentCategories2Binding? = null
     private val binding
         get() = _binding!!
-
-    var  categoryPosition:Int?=null
-    lateinit var navController: NavController
-
     private val mainViewModel by activityViewModels<MainViewModel>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mealsAdapter = MealsAdapter(requireContext())
-
-        requireActivity().onBackPressedDispatcher.addCallback(this) {
-            val action=FilterCategoriesFragmentDirections.actionCategories2FragmentToMainFragment()
-            navController.navigate(action)
-        }
     }
 
     override fun onCreateView(
@@ -57,21 +45,20 @@ class FilterCategoriesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        navController=Navigation.findNavController(view)
-        category = categories2FragmentArgs.category!!
-        mealsAdapter.navigate(category)
         getCategories()
         initVars()
+
     }
 
     private fun getArgsFromMainFragment() {
-        categoryPosition = Integer.parseInt(category.idCategory)
+        val categoryPosition = Integer.parseInt(mainViewModel.getCategory().idCategory)
+        Log.d(TAG, "getArgsFromMainFragment: ${mainViewModel.getCategory().idCategory}")
         CoroutineScope(Dispatchers.Main).launch {
-            selectCategory(categoryPosition!! - 1)
+            selectTab(categoryPosition - 1)
         }
     }
 
-    private suspend fun selectCategory(position: Int) {
+    private suspend fun selectTab(position: Int) {
         delay(5)
         binding.tabLayout.getTabAt(position)?.select()
     }
@@ -87,44 +74,38 @@ class FilterCategoriesFragment : Fragment() {
                     )
                 }
                 getArgsFromMainFragment()
+
                 onTabSelected(categoriesList)
             }
         }
     }
 
     private fun initVars() {
-        getCategoryDesc()
+        getCategoryInfo()
     }
 
-    private fun getCategoryDesc() {
-        val categoryDesc = category.strCategoryDescription
-        val categoryName = category.strCategory
+    private fun getCategoryInfo() {
+        val categoryDesc = mainViewModel.getCategory().strCategoryDescription
+        val categoryName = mainViewModel.getCategory().strCategory
         getMealsByCategoryName(categoryName)
-        changeCategoryDesc(categoryDesc)
+        setCategoryDesc(categoryDesc)
     }
 
-    private fun changeCategoryDesc(categoryDesc: String) {
+    private fun setCategoryDesc(categoryDesc: String) {
         binding.categoryDescInFragment.text = categoryDesc
     }
 
     private fun onTabSelected(categoriesList: List<Category>) {
         binding.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {
-                binding.nestedScrollView.scrollTo(0, 0)
-                for (categoryItem: Category in categoriesList) {
-                    if (categoryItem.idCategory == "${tab?.position?.plus(1)}") {
-                        category=categoryItem
-                        mealsAdapter.navigate(category)
-                        val categoryDesc = categoryItem.strCategoryDescription
-                        changeCategoryDesc(categoryDesc)
-                        getMealsByCategoryName(categoryItem.strCategory)
-                    }
-                }
+                doInTabSelected(tab!!, categoriesList)
             }
+
             override fun onTabUnselected(tab: TabLayout.Tab?) {
             }
 
             override fun onTabReselected(tab: TabLayout.Tab?) {
+
             }
 
         })
@@ -137,9 +118,9 @@ class FilterCategoriesFragment : Fragment() {
                     binding.shimmerEffect3.startShimmer()
                 }
                 Status.SUCCESS -> {
-                    val mealsList=it.data
+                    val mealsList = it.data
                     mealsAdapter.submitList(mealsList)
-                    binding.shimmerEffect3.visibility=View.INVISIBLE
+                    binding.shimmerEffect3.visibility = View.INVISIBLE
                 }
                 Status.FAIL -> {
                 }
@@ -152,6 +133,21 @@ class FilterCategoriesFragment : Fragment() {
         binding.mealsContainerId.apply {
             setHasFixedSize(true)
             adapter = mealsAdapter
+        }
+    }
+
+    private fun doInTabSelected(tab: TabLayout.Tab, categoriesList: List<Category>) {
+        binding.nestedScrollView.scrollTo(0, 0)
+        binding.shimmerEffect3.startShimmer()
+        for (categoryItem: Category in categoriesList) {
+            if (categoryItem.idCategory == "${tab.position.plus(1)}") {
+                mainViewModel.setCategory(categoryItem)
+                val categoryDesc = categoryItem.strCategoryDescription
+                setCategoryDesc(categoryDesc)
+                getMealsByCategoryName(categoryItem.strCategory)
+                binding.shimmerEffect3.visibility = View.INVISIBLE
+
+            }
         }
     }
 

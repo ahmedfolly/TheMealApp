@@ -38,7 +38,7 @@ class MealsAdapter(val context: Context) :
 
         holder.itemView.setOnClickListener {
             navController=Navigation.findNavController(it)
-            val action = FilterCategoriesFragmentDirections.actionCategories2FragmentToDetailsFragment(meal.idMeal,category)
+            val action = FilterCategoriesFragmentDirections.actionCategories2FragmentToDetailsFragment(meal)
             navController.navigate(action)
         }
     }
@@ -48,7 +48,8 @@ class MealsAdapter(val context: Context) :
         val mealImage: ImageView = itemView.findViewById(R.id.meal_image_id)
         val mealName: TextView = itemView.findViewById(R.id.meal_text_id)
     }
-     fun navigate(category:Category){
+
+    fun navigate(category:Category){
         this.category=category
     }
 }
@@ -62,4 +63,7 @@ class MealListDiff : DiffUtil.ItemCallback<Meal>() {
         return oldItem == newItem
     }
 
+}
+interface Test{
+    fun test(mealId:String)
 }

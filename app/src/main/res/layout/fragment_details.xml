@@ -1,11 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><!--
-  Developed by Haerul Muttaqin
-  Last modified 4/7/19 7:40 PM
-  Subscribe : https://www.youtube.com/haerulmuttaqin
-  Copyright (c) 2019. All rights reserved
-  -->
-
-<!--TODO #2 this is a layout for detailed activity, please note the id-->
+<?xml version="1.0" encoding="utf-8"?>
 
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -14,7 +7,6 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     tools:context=".ui.DetailsFragment">
-
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appbar"
         android:layout_width="match_parent"
@@ -28,7 +20,6 @@
             android:layout_height="match_parent"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             >
-
             <com.github.chrisbanes.photoview.PhotoView
                 android:id="@+id/mealThumb"
                 android:layout_width="match_parent"
@@ -67,15 +58,32 @@
                 android:indeterminate="true"
                 android:layout_gravity="bottom"
                 />
-            <TextView
-                android:id="@+id/meal_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="..."
-                android:textSize="20sp"
-                android:textColor="@color/black"
-                android:textStyle="bold"
-                android:layout_margin="8dp"/>
+           <LinearLayout
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:orientation="horizontal"
+               android:id="@+id/favorite_layout">
+               <TextView
+                   android:id="@+id/meal_name"
+                   android:layout_width="0dp"
+                   android:layout_weight="1"
+                   android:layout_height="wrap_content"
+                   android:text="..."
+                   android:textSize="20sp"
+                   android:textColor="@color/black"
+                   android:textStyle="bold"
+                   android:layout_margin="8dp"
+                   android:layout_gravity="center"/>
+               <ImageView
+                   android:id="@+id/add_meal_to_favorites"
+                   android:layout_width="32dp"
+                   android:layout_height="32dp"
+                   android:src="@drawable/ic_baseline_favorite_border_24"
+                   android:layout_gravity="right|center"
+                   android:layout_margin="16dp"
+                   />
+           </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

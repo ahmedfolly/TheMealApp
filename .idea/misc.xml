@@ -3,7 +3,11 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/HP/AndroidStudioProjects/TheMealApp/app/src/main/res/drawable/category_name_back.xml" value="0.128" />
         <entry key="..\:/Users/HP/AndroidStudioProjects/TheMealApp/app/src/main/res/drawable/header_layout.xml" value="0.1" />
+        <entry key="..\:/Users/HP/AndroidStudioProjects/TheMealApp/app/src/main/res/drawable/ic_baseline_favorite_24.xml" value="0.128" />
+        <entry key="..\:/Users/HP/AndroidStudioProjects/TheMealApp/app/src/main/res/drawable/ic_baseline_favorite_24_white.xml" value="0.133" />
+        <entry key="..\:/Users/HP/AndroidStudioProjects/TheMealApp/app/src/main/res/drawable/ic_baseline_favorite_border_24.xml" value="0.128" />
         <entry key="..\:/Users/HP/AndroidStudioProjects/TheMealApp/app/src/main/res/drawable/ic_info.xml" value="0.1" />
         <entry key="..\:/Users/HP/AndroidStudioProjects/TheMealApp/app/src/main/res/drawable/ic_link.xml" value="0.1" />
         <entry key="..\:/Users/HP/AndroidStudioProjects/TheMealApp/app/src/main/res/drawable/ic_play.xml" value="0.1" />
@@ -18,13 +22,16 @@
         <entry key="..\:/Users/HP/AndroidStudioProjects/TheMealApp/app/src/main/res/layout/categories_shimmer_layout.xml" value="0.17980072463768115" />
         <entry key="..\:/Users/HP/AndroidStudioProjects/TheMealApp/app/src/main/res/layout/category_desc_shimmer_effect.xml" value="0.17980072463768115" />
         <entry key="..\:/Users/HP/AndroidStudioProjects/TheMealApp/app/src/main/res/layout/category_layout.xml" value="0.12" />
+        <entry key="..\:/Users/HP/AndroidStudioProjects/TheMealApp/app/src/main/res/layout/favorite_meal_layout.xml" value="0.18568840579710144" />
         <entry key="..\:/Users/HP/AndroidStudioProjects/TheMealApp/app/src/main/res/layout/fragment_categories.xml" value="0.1" />
-        <entry key="..\:/Users/HP/AndroidStudioProjects/TheMealApp/app/src/main/res/layout/fragment_categories2.xml" value="0.17980072463768115" />
+        <entry key="..\:/Users/HP/AndroidStudioProjects/TheMealApp/app/src/main/res/layout/fragment_categories2.xml" value="0.22" />
         <entry key="..\:/Users/HP/AndroidStudioProjects/TheMealApp/app/src/main/res/layout/fragment_details.xml" value="0.17980072463768115" />
+        <entry key="..\:/Users/HP/AndroidStudioProjects/TheMealApp/app/src/main/res/layout/fragment_favorites.xml" value="0.18568840579710144" />
         <entry key="..\:/Users/HP/AndroidStudioProjects/TheMealApp/app/src/main/res/layout/fragment_main.xml" value="0.17980072463768115" />
         <entry key="..\:/Users/HP/AndroidStudioProjects/TheMealApp/app/src/main/res/layout/fragment_search.xml" value="0.17980072463768115" />
         <entry key="..\:/Users/HP/AndroidStudioProjects/TheMealApp/app/src/main/res/layout/latest_meal_layout.xml" value="0.1" />
         <entry key="..\:/Users/HP/AndroidStudioProjects/TheMealApp/app/src/main/res/layout/latest_shimmer.xml" value="0.17980072463768115" />
+        <entry key="..\:/Users/HP/AndroidStudioProjects/TheMealApp/app/src/main/res/layout/searched_meal_layout.xml" value="0.1" />
       </map>
     </option>
   </component>

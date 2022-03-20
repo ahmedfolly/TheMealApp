@@ -28,7 +28,7 @@ import com.example.themealapp.ui.SearchFragmentDirections
 
 
 class SearchedMealsAdapter(val context: Context) :
-    ListAdapter<MealDetails, SearchedMealsAdapter.SearchedMealsVH>(SearchedMealsListDiff()) {
+    ListAdapter<Meal, SearchedMealsAdapter.SearchedMealsVH>(SearchedMealsListDiff()) {
 
     //    var searchedTerm:String?=null
     private var _binding: SearchedMealLayoutBinding?=null
@@ -39,7 +39,7 @@ class SearchedMealsAdapter(val context: Context) :
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): SearchedMealsAdapter.SearchedMealsVH {
+    ):SearchedMealsVH {
         val inflater = LayoutInflater.from(parent.context)
         _binding= SearchedMealLayoutBinding.inflate(inflater,parent,false)
         return SearchedMealsVH(binding)
@@ -51,13 +51,12 @@ class SearchedMealsAdapter(val context: Context) :
         val searchedMealName = meal.strMeal
 
         holder.binding.searchedMealName.text = searchedMealName
-        Glide.with(context).load(searchedMealImageUrl).into(holder.binding.searchedImageId)
+        Glide.with(context).load(searchedMealImageUrl).into(holder.binding.searchedMealImage)
 
         holder.itemView.setOnClickListener {
             navController=Navigation.findNavController(it)
-            val action = SearchFragmentDirections.actionSearchFragmentToDetailsFragment(meal.idMeal,null)
+            val action = SearchFragmentDirections.actionSearchFragmentToDetailsFragment(meal)
             navController.navigate(action)
-
         }
     }
 
@@ -67,13 +66,21 @@ class SearchedMealsAdapter(val context: Context) :
         private const val TAG = "SearchedMealsAdapter"
     }
 
-    class SearchedMealsListDiff : DiffUtil.ItemCallback<MealDetails>() {
-        override fun areItemsTheSame(oldItem: MealDetails, newItem: MealDetails): Boolean {
+    class SearchedMealsListDiff : DiffUtil.ItemCallback<Meal>() {
+        //        override fun areItemsTheSame(oldItem: MealDetails, newItem: MealDetails): Boolean {
+//            return oldItem.idMeal == newItem.idMeal
+//        }
+//
+//        override fun areContentsTheSame(oldItem: MealDetails, newItem: MealDetails): Boolean {
+//            return oldItem == newItem
+//        }
+        override fun areItemsTheSame(oldItem: Meal, newItem: Meal): Boolean {
             return oldItem.idMeal == newItem.idMeal
         }
 
-        override fun areContentsTheSame(oldItem: MealDetails, newItem: MealDetails): Boolean {
-            return oldItem == newItem
+        override fun areContentsTheSame(oldItem: Meal, newItem: Meal): Boolean {
+            return oldItem==newItem
         }
+
     }
 }
