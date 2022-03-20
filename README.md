@@ -1,5 +1,5 @@
 # TheMealApp
-An android app that use food API to display different categories of food
+An android app that uses food API to display different categories of food
 The food api is https://www.themealdb.com/api.php.
 What I used in this project?
 
@@ -15,6 +15,13 @@ What I used in this project?
 -list adapter and DiffUtil to get the difference between two lists and outputs a list of update operations that converts the first list into the second one,and show some animations (in search activity).
 -Extension functions.
 -Koltin coroutines.
+-photoview to ZoomIn and Zoomout. https://github.com/Baseflow/PhotoView
 
+#UPDATE
+I heave just done Favorite feature:
+  -Enable user to mark meal as favorite meal.
+  -save favorite meals in local sorage using Room database.
+  -Enable user to remark meal as un favorite.
+  
 Most of UI designs from https://github.com/haerulmuttaqin/FoodsApp-starting-code with some differences.
 ![](image.jpg)
