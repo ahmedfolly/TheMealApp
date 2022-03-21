@@ -29,6 +29,8 @@ Most of UI designs from https://github.com/haerulmuttaqin/FoodsApp-starting-code
 
 Coming Updates (Caching using Room database,favourits meals,etc...)
 
+#UPDATE I heave just done Favorite feature: -Enable user to mark meal as favorite meal. -save favorite meals in local sorage using Room database. -Enable user to remark meal as un favorite.
+
 ![](image.jpg)
 
 ![](app/imaged.jpg)
