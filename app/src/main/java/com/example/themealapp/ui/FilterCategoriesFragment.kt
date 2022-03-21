@@ -64,7 +64,7 @@ class FilterCategoriesFragment : Fragment() {
         initVars()
     }
 
-    private fun getArgsFromMainFragment() {
+    private fun scrollToPosition() {
         categoryPosition = Integer.parseInt(category.idCategory)
         CoroutineScope(Dispatchers.Main).launch {
             selectCategory(categoryPosition!! - 1)
@@ -86,7 +86,7 @@ class FilterCategoriesFragment : Fragment() {
                         binding.tabLayout.newTab().setText(category.strCategory)
                     )
                 }
-                getArgsFromMainFragment()
+                scrollToPosition()
                 onTabSelected(categoriesList)
             }
         }
